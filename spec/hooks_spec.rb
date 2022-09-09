@@ -5,6 +5,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     let(:lead) do
       lead = OpenStruct.new
       lead.source = source
+      lead.product = product
       lead.message = nil
 
       lead
@@ -15,6 +16,13 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       source.name = 'myHonda'
 
       source
+    end
+
+    let(:product) do
+      product = OpenStruct.new
+      product.name = ''
+
+      product
     end
 
     let(:switch_source) { described_class.switch_source(lead) }
@@ -38,6 +46,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       it 'returns Ilha in source' do
         expect(switch_source).to eq('myHonda - SJ')
+      end
+    end
+
+    context 'when product is revisão' do
+      before { product.name = 'WRV - Revisão' }
+
+      it 'returns Fonte sem time' do
+        expect(switch_source).to eq('Fonte sem time')
       end
     end
   end

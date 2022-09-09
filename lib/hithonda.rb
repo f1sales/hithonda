@@ -11,11 +11,14 @@ module Hithonda
   class F1SalesCustom::Hooks::Lead
     def self.switch_source(lead)
       source_name = lead.source.name
+      product_name = lead.product.name.downcase
       message = lead.message || ''
       if message['1709446']
         "#{source_name} - Ilha"
       elsif message['1699751']
         "#{source_name} - SJ"
+      elsif product_name['revisão']
+        'Fonte sem time'
       else
         source_name
       end
