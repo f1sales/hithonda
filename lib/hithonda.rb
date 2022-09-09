@@ -17,9 +17,16 @@ module Hithonda
       end
 
       def return_source
-        if product_name['revisão']
-          "#{@source_name} - Revisão"
-        elsif message['1709446']
+        return "#{@source_name} - Revisão" if product_name['revisão']
+
+        @source_name = choose_dealership
+        return "#{@source_name} - Consórcio" if description['consórcio']
+
+        @source_name
+      end
+
+      def choose_dealership
+        if message['1709446']
           "#{@source_name} - Ilha"
         elsif message['1699751']
           "#{@source_name} - SJ"
@@ -34,6 +41,10 @@ module Hithonda
 
       def message
         @lead.message || ''
+      end
+
+      def description
+        @lead.description&.downcase || ''
       end
     end
   end

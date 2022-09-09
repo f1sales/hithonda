@@ -56,5 +56,13 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         expect(switch_source).to eq('myHonda - Revisão')
       end
     end
+
+    context 'when description is Consórcio' do
+      before { lead.description = 'CNH - Consórcio Honda' }
+
+      it 'returns Fonte sem time' do
+        expect(switch_source).to eq('myHonda - Ilha - Consórcio')
+      end
+    end
   end
 end
