@@ -12,6 +12,11 @@ gem "rake", "~> 13.0"
 
 gem "rspec", "~> 3.0"
 
+group :development do
+  gem 'rubocop', require: false
+end
+
 group :test do
   gem 'byebug'
+  gem 'faker'
 end
