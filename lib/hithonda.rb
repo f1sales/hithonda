@@ -26,9 +26,9 @@ module Hithonda
       end
 
       def choose_dealership
-        if message['1709446']
+        if description['1709446']
           "#{@source_name} - Ilha"
-        elsif message['1699751']
+        elsif description['1699751']
           "#{@source_name} - SJ"
         else
           @source_name
@@ -37,10 +37,6 @@ module Hithonda
 
       def product_name
         @lead.product.name.downcase
-      end
-
-      def message
-        @lead.message || ''
       end
 
       def description

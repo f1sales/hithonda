@@ -6,7 +6,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       lead = OpenStruct.new
       lead.source = source
       lead.product = product
-      lead.message = 'Código da concessionária 1709446'
+      lead.description = ''
 
       lead
     end
@@ -27,22 +27,22 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
     let(:switch_source) { described_class.switch_source(lead) }
 
-    context 'when message do not contains dealership code' do
-      before { lead.message = nil }
-
+    context 'when description do not contains dealership code' do
       it 'returns original source' do
         expect(switch_source).to eq('myHonda')
       end
     end
 
-    context 'when message contains code 1709446' do
+    context 'when description contains code 1709446' do
+      before { lead.description = 'Concessionária: HIT ILHA - Código: 1709446' }
+
       it 'returns Ilha in source' do
         expect(switch_source).to eq('myHonda - Ilha')
       end
     end
 
-    context 'when message contains code 1699751' do
-      before { lead.message = 'Código da concessionária 1699751' }
+    context 'when description contains code 1699751' do
+      before { lead.description = 'Concessionária: HIT ILHA - Código: 1699751' }
 
       it 'returns Ilha in source' do
         expect(switch_source).to eq('myHonda - SJ')
@@ -54,14 +54,6 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       it 'returns Fonte sem time' do
         expect(switch_source).to eq('myHonda - Revisão')
-      end
-    end
-
-    context 'when description is Consórcio' do
-      before { lead.description = 'CNH - Consórcio Honda' }
-
-      it 'returns Fonte sem time' do
-        expect(switch_source).to eq('myHonda - Ilha - Consórcio')
       end
     end
   end
