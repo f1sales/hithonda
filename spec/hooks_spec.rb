@@ -49,6 +49,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       end
     end
 
+    context 'when description contains code 1699751 and Tipo Consórcio' do
+      before { lead.description = 'Concessionária: HIT ILHA - Código: 1699751 - Tipo: Consórcio' }
+
+      it 'returns Ilha in source' do
+        expect(switch_source).to eq('myHonda - SJ - Consórcio')
+      end
+    end
+
     context 'when product is revisão' do
       before { product.name = 'WRV - Revisão' }
 
