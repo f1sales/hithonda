@@ -37,7 +37,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { lead.description = 'Concessionária: HIT ILHA - Código: 1709446' }
 
       it 'returns Ilha in source' do
-        expect(switch_source).to eq('myHonda - Ilha')
+        expect(switch_source).to eq('myHonda')
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { lead.description = 'Concessionária: HIT ILHA - Código: 1699751' }
 
       it 'returns Ilha in source' do
-        expect(switch_source).to eq('myHonda - SJ')
+        expect(switch_source).to eq('myHonda')
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { lead.description = 'Concessionária: HIT ILHA - Código: 1699751 - Tipo: Consórcio' }
 
       it 'returns Ilha in source' do
-        expect(switch_source).to eq('myHonda - SJ - Consórcio')
+        expect(switch_source).to eq('myHonda - Consórcio')
       end
     end
 

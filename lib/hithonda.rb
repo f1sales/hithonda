@@ -19,20 +19,9 @@ module Hithonda
       def return_source
         return "#{@source_name} - Revisão" if product_name['revisão']
 
-        @source_name = choose_dealership
         return "#{@source_name} - Consórcio" if description['consórcio']
 
         @source_name
-      end
-
-      def choose_dealership
-        if description['1709446']
-          "#{@source_name} - Ilha"
-        elsif description['1699751']
-          "#{@source_name} - SJ"
-        else
-          @source_name
-        end
       end
 
       def product_name

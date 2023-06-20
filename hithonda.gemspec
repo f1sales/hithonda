@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "lib/hithonda/version"
+require_relative 'lib/hithonda/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'hithonda'
