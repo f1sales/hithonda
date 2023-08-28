@@ -12,16 +12,17 @@ module Hithonda
     class << self
       def switch_source(lead)
         @lead = lead
-        @source_name = lead.source.name
         return_source
       end
 
+      private
+
       def return_source
-        return "#{@source_name} - Revisão" if product_name['revisão']
+        return "#{source_name} - Revisão" if revision?
 
-        return "#{@source_name} - Consórcio" if description['consórcio']
+        return "#{source_name} - Consórcio" if consortium?
 
-        @source_name
+        source_name
       end
 
       def product_name
@@ -30,6 +31,18 @@ module Hithonda
 
       def description
         @lead.description&.downcase || ''
+      end
+
+      def source_name
+        @lead.source.name
+      end
+
+      def consortium?
+        description['consórcio'] || description['hsf']
+      end
+
+      def revision?
+        product_name['revisão']
       end
     end
   end
