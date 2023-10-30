@@ -19,8 +19,8 @@ module Hithonda
 
       def return_source
         return "#{source_name} - Revisão" if revision?
-
         return "#{source_name} - Consórcio" if consortium?
+        return "#{source_name} - Serviços" if service?
 
         source_name
       end
@@ -43,6 +43,10 @@ module Hithonda
 
       def revision?
         product_name['revisão']
+      end
+
+      def service?
+        description['serviço']
       end
     end
   end
