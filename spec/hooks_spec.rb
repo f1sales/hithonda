@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'byebug'
 
 RSpec.describe F1SalesCustom::Hooks::Lead do
   describe '.switch_source' do
@@ -68,11 +69,21 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         end
       end
 
-      context 'when product is revisão' do
-        before { product.name = 'WRV - Revisão' }
+      context 'when is to Serviços Team' do
+        context 'when product is revisão' do
+          before { product.name = 'WRV - Revisão' }
 
-        it 'returns Fonte sem time' do
-          expect(switch_source).to eq('myHonda - Revisão')
+          it 'returns Fonte sem time' do
+            expect(switch_source).to eq('myHonda - Revisão')
+          end
+        end
+
+        context 'when description contains Serviços e Peças' do
+          before { lead.description = 'Concessionária: HIT ILHA; Código: 1709446; Tipo: CS - Serviços e Peças' }
+
+          it 'return myHonda - Serviços' do
+            expect(switch_source).to eq('myHonda - Serviços')
+          end
         end
       end
     end
