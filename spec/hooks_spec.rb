@@ -31,7 +31,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       context 'when description do not contains dealership code' do
         it 'returns original source' do
-          expect(switch_source).to eq('myHonda')
+          expect(switch_source).to eq('myHonda - Vendas')
         end
       end
 
@@ -39,7 +39,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         before { lead.description = 'Concessionária: HIT ILHA - Código: 1709446' }
 
         it 'returns Ilha in source' do
-          expect(switch_source).to eq('myHonda')
+          expect(switch_source).to eq('myHonda - Vendas')
         end
       end
 
@@ -47,7 +47,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         before { lead.description = 'Concessionária: HIT ILHA - Código: 1699751' }
 
         it 'returns Ilha in source' do
-          expect(switch_source).to eq('myHonda')
+          expect(switch_source).to eq('myHonda - Vendas')
         end
       end
 
@@ -84,6 +84,39 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
           it 'return myHonda - Pós-venda' do
             expect(switch_source).to eq('myHonda - Pós-venda')
           end
+        end
+      end
+    end
+
+    context 'when lead come from other sources' do
+      let(:lead) do
+        lead = OpenStruct.new
+        lead.source = source
+        lead.product = product
+        lead.description = ''
+
+        lead
+      end
+
+      let(:source) do
+        source = OpenStruct.new
+        source.name = 'Aother source'
+
+        source
+      end
+
+      let(:product) do
+        product = OpenStruct.new
+        product.name = ''
+
+        product
+      end
+
+      let(:switch_source) { described_class.switch_source(lead) }
+
+      context 'when description do not contains dealership code' do
+        it 'returns original source' do
+          expect(switch_source).to eq('Aother source')
         end
       end
     end
