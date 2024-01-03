@@ -18,9 +18,8 @@ module Hithonda
       private
 
       def return_source
-        return "#{source_name} - Revisão" if revision?
+        return "#{source_name} - Pós-venda" if revision? || service?
         return "#{source_name} - Consórcio" if consortium?
-        return "#{source_name} - Serviços" if service?
 
         source_name
       end

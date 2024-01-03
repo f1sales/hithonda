@@ -73,16 +73,16 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         context 'when product is revisão' do
           before { product.name = 'WRV - Revisão' }
 
-          it 'returns Fonte sem time' do
-            expect(switch_source).to eq('myHonda - Revisão')
+          it 'returns myHonda - Pós-venda' do
+            expect(switch_source).to eq('myHonda - Pós-venda')
           end
         end
 
         context 'when description contains Serviços e Peças' do
           before { lead.description = 'Concessionária: HIT ILHA; Código: 1709446; Tipo: CS - Serviços e Peças' }
 
-          it 'return myHonda - Serviços' do
-            expect(switch_source).to eq('myHonda - Serviços')
+          it 'return myHonda - Pós-venda' do
+            expect(switch_source).to eq('myHonda - Pós-venda')
           end
         end
       end
